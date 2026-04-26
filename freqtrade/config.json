@@ -11,8 +11,8 @@
     "location_strategy": "/freqtrade/user_data/strategies/sample_strategy.py",
     "exchange": {
         "name": "bybit",
-        "key": "h11fW550SC82rRh0uY",
-        "secret": "bVKesrK2daHeE6QEXXMOiJPXuzj6EpSqQVUM",
+        "key": "DUMMY_BYBIT_KEY",
+        "secret": "DUMMY_BYBIT_SECRET",
         "ccxt_config": {},
         "ccxt_async_config": {},
         "pair_whitelist": [
