@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/charting-frontend', './frontend']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/trading-repo/charting-frontend', './frontend']
 images:
-  - 'gcr.io/$PROJECT_ID/charting-frontend'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/trading-repo/charting-frontend'
 options:
   logging: CLOUD_LOGGING_ONLY
