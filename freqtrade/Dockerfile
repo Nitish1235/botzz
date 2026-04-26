@@ -1,13 +1,15 @@
 FROM freqtradeorg/freqtrade:stable
 
-# Ensure user_data directories exist
-RUN mkdir -p /freqtrade/user_data/strategies /freqtrade/user_data/data /freqtrade/user_data/logs
+# Create all necessary directories
+RUN mkdir -p /freqtrade/user_data/strategies \
+    && mkdir -p /freqtrade/user_data/data \
+    && mkdir -p /freqtrade/user_data/logs \
+    && mkdir -p /freqtrade/user_data/backtests
 
-# Copy config and strategy
+# Copy your local config and strategies
 COPY ./freqtrade/config.json /freqtrade/config.json
-COPY ./freqtrade/user_data /freqtrade/user_data
+COPY ./freqtrade/user_data/strategies /freqtrade/user_data/strategies
 
-# Set entrypoint to run the bot
-# We use --api-port 8080 to ensure it matches Cloud Run's default port
-ENTRYPOINT ["freqtrade"]
-CMD ["trade", "--config", "/freqtrade/config.json", "--strategy", "SampleStrategy", "--api-port", "8080"]
+# Set the command to run the bot
+# The port 8080 is already defined in config.json under 'api_server'
+CMD ["trade", "--config", "/freqtrade/config.json", "--strategy", "SampleStrategy", "--db-url", "sqlite:////freqtrade/user_data/data/tradesv3.sqlite"]
