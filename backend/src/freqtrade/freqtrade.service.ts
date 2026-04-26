@@ -6,9 +6,9 @@ export class FreqtradeService {
   private readonly logger = new Logger(FreqtradeService.name);
   private readonly baseUrl = process.env.FREQTRADE_URL || 'http://localhost:8080/api/v1';
   
-  // Credentials from environment variables
-  private readonly username = process.env.FREQTRADE_USERNAME || 'Freqtrader';
-  private readonly password = process.env.FREQTRADE_PASSWORD || 'DUMMY_PASSWORD';
+  // Hardcoded credentials for internal communication
+  private readonly username = 'Freqtrader';
+  private readonly password = 'SuperSecret1!';
 
   private get authHeader() {
     return {

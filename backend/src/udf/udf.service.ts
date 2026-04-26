@@ -8,8 +8,8 @@ export class UdfService {
 
   constructor() {
     this.exchange = new ccxt.bybit({
-      apiKey: process.env.BYBIT_API_KEY || 'DUMMY_BYBIT_KEY',
-      secret: process.env.BYBIT_API_SECRET || 'DUMMY_BYBIT_SECRET',
+      apiKey: 'h11fW550SC82rRh0uY',
+      secret: 'bVKesrK2daHeE6QEXXMOiJPXuzj6EpSqQVUM',
       enableRateLimit: true,
     });
   }
