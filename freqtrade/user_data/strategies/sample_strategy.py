@@ -24,8 +24,8 @@ class SampleStrategy(IStrategy):
     trailing_stop = False
     process_only_new_candles = True
     use_exit_signal = True
-    exit_profit_only = false
-    ignore_roi_if_entry_signal = false
+    exit_profit_only = False
+    ignore_roi_if_entry_signal = False
     startup_candle_count: int = 30
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
