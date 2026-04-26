@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: charting_db
+    environment:
+      POSTGRES_USER: charting_user
+      POSTGRES_PASSWORD: charting_password
+      POSTGRES_DB: charting_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: charting_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    container_name: freqtrade_bot
+    volumes:
+      - "./freqtrade/user_data:/freqtrade/user_data"
+      - "./freqtrade/config.json:/freqtrade/config.json"
+    command: >
+      trade
+      --config /freqtrade/config.json
+      --strategy SampleStrategy
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  backend:
+    build: 
+      context: ./backend
+    container_name: charting_backend
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=charting_user
+      - DB_PASSWORD=charting_password
+      - DB_NAME=charting_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - FREQTRADE_URL=http://freqtrade:8080/api/v1
+    depends_on:
+      - db
+      - redis
+      - freqtrade
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: charting_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NEXT_PUBLIC_WS_URL=http://localhost:3001
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
