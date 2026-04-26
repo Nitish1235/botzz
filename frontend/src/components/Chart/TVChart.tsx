@@ -128,7 +128,7 @@ export const TVChart: React.FC<ChartProps> = ({ symbol, timeframe }) => {
           
           // Sort markers by time as required by lightweight-charts
           markers.sort((a, b) => (a.time as number) - (b.time as number));
-          candlestickSeries.setMarkers(markers);
+          (candlestickSeries as any).setMarkers(markers);
         }
       } catch (err) {
         console.error("Failed to load trades", err);
