@@ -3,3 +3,5 @@ steps:
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/freqtrade-bot', '-f', './freqtrade/Dockerfile', '.']
 images:
   - 'gcr.io/$PROJECT_ID/freqtrade-bot'
+options:
+  logging: CLOUD_LOGGING_ONLY

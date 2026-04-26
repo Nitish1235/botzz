@@ -3,3 +3,5 @@ steps:
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/charting-frontend', './frontend']
 images:
   - 'gcr.io/$PROJECT_ID/charting-frontend'
+options:
+  logging: CLOUD_LOGGING_ONLY
